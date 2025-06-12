@@ -1,3 +1,5 @@
+// === PET DATA ===
+// This array holds information about each pet
 const pets = [
   {
     name: "Fluffy",
@@ -23,30 +25,35 @@ const pets = [
     image: "Assets/Images/budgie.jpg",
     sound: "Assets/Sound/budgie-screams-42568.mp3"
   }
-  
 ];
 
-// Sort pets from oldest to youngest
+// === SORT PETS FROM OLDEST TO YOUNGEST ===
 pets.sort((a, b) => b.age - a.age);
 
+// === GET THE TIMELINE CONTAINER ===
 const timeline = document.getElementById("timeline");
 
+// === CREATE A CARD FOR EACH PET ===
 pets.forEach(pet => {
+  // Create the main card div
   const card = document.createElement("div");
   card.className = "card";
 
+  // Inner container to hold front and back sides
   const inner = document.createElement("div");
   inner.className = "card-inner";
 
+  // Create the front of the card with image and name
   const front = document.createElement("div");
   front.className = "card-front";
   front.innerHTML = `
     <img src="${pet.image}" alt="${pet.name}">
     <h3>${pet.name}</h3>
     <p>Age: ${pet.age}</p>
-    <button>Hear Me!</button>
+    <button>Hear Me!</button> <!-- Button to play pet sound -->
   `;
 
+  // Create the back of the card with details
   const back = document.createElement("div");
   back.className = "card-back";
   back.innerHTML = `
@@ -56,23 +63,30 @@ pets.forEach(pet => {
     <p>Favorite Food: ${pet.food}</p>
   `;
 
+  // Add both sides to the inner container
   inner.appendChild(front);
   inner.appendChild(back);
+
+  // Add inner container to the card
   card.appendChild(inner);
+
+  // Add the card to the timeline on the page
   timeline.appendChild(card);
 
-  // Add flip on click (except button)
+  // === MAKE THE CARD FLIP WHEN CLICKED ===
   card.addEventListener("click", (e) => {
+    // Don't flip if the button was clicked
     if (e.target.tagName !== 'BUTTON') {
       card.classList.toggle("flipped");
     }
   });
 
-  // Play sound when "Hear Me!" button is clicked
+  // === PLAY PET SOUND WHEN BUTTON IS CLICKED ===
   const button = front.querySelector("button");
   const audio = new Audio(pet.sound);
+
   button.addEventListener("click", (e) => {
-    e.stopPropagation(); // prevent card flip
-    audio.play();
+    e.stopPropagation(); // Stop card from flipping
+    audio.play(); // Play the pet's sound
   });
 });
