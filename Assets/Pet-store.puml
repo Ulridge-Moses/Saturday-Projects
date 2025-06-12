@@ -1,0 +1,31 @@
+@startuml
+title Pet Store Web App Structure
+
+package "Frontend" {
+  node "HTML Page" {
+    component "Title (h1)"
+    component "Subtitle (p)"
+    component "Timeline Container (div#timeline)"
+  }
+
+  node "CSS (style.css)" {
+    component "Layout: .timeline"
+    component "Card Design: .card, .card-inner"
+    component "Flip Effect: .flipped"
+    component "Button Style"
+  }
+
+  node "JavaScript (script.js)" {
+    component "Pet Array"
+    component "Card Generator"
+    component "Flip Event"
+    component "Sound Playback"
+  }
+}
+
+HTML --> CSS : Styled by
+HTML --> JavaScript : Dynamically modified by
+JavaScript --> HTML : Adds pet cards
+JavaScript --> CSS : Relies on classes for flip
+
+@enduml
